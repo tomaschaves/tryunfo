@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes, { bool, func } from 'prop-types';
+// import PropTypes, { bool, func } from 'prop-types';
 
 class Form extends Component {
   render() {
@@ -12,10 +12,10 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      hasTrunfo,
-      isSaveButtonDisabled,
-      onInputChange,
-      onSaveButtonClick } = this.props;
+      // hasTrunfo,
+      // isSaveButtonDisabled,
+      // onSaveButtonClick,
+      onInputChange } = this.props;
 
     return (
       <form>
