@@ -35,7 +35,6 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      onInputChange,
       hasTrunfo,
       isSaveButtonDisabled,
     } = this.state;
@@ -63,7 +62,6 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
-          onInputChange={ this.handleChange }
         />
       </div>
     );
