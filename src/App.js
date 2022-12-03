@@ -14,7 +14,11 @@ class App extends React.Component {
     cardTrunfo: false,
     // hasTrunfo: false,
     isSaveButtonDisabled: true,
+    savedCards: [],
   };
+
+  // para usar o que está acima, ao irmos colocar os valores nos campos, temos que usar o spread '...initialState'
+  // vídeo da aula aos 01:50:00
 
   validationFields = () => {
     const {
@@ -78,7 +82,7 @@ class App extends React.Component {
     });
   };
 
-  render() {
+  onSaveButtonClick = () => {
     const {
       cardName,
       cardDescription,
@@ -88,35 +92,68 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
-      isSaveButtonDisabled,
     } = this.state;
+
+    const newCard = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+
+    this.setState(({ savedCards }) => ({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      savedCards: [...savedCards, newCard],
+    }));
+  };
+
+  render() {
+    const { savedCards } = this.state;
 
     return (
       <div>
         <h1>Tryunfo</h1>
         <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
+          { ...this.state }
+          onSaveButtonClick={ this.onSaveButtonClick }
           onInputChange={ this.handleChange }
         />
         <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
+          { ...this.state }
         />
+        { savedCards.map(({
+          cardName,
+          cardDescription,
+          cardAttr1,
+          cardAttr2,
+          cardAttr3,
+          cardImage,
+          cardRare,
+          cardTrunfo,
+        }) => (
+          <Card
+            key={ cardName }
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
+        ))}
       </div>
     );
   }
