@@ -12,13 +12,10 @@ class App extends React.Component {
     cardImage: '',
     cardRare: '',
     cardTrunfo: false,
-    // hasTrunfo: false,
+    hasTrunfo: false,
     isSaveButtonDisabled: true,
     savedCards: [],
   };
-
-  // para usar o que está acima, ao irmos colocar os valores nos campos, temos que usar o spread '...initialState'
-  // vídeo da aula aos 01:50:00
 
   validationFields = () => {
     const {
@@ -84,6 +81,7 @@ class App extends React.Component {
 
   onSaveButtonClick = () => {
     const {
+      savedCards,
       cardName,
       cardDescription,
       cardAttr1,
@@ -105,7 +103,11 @@ class App extends React.Component {
       cardTrunfo,
     };
 
-    this.setState(({ savedCards }) => ({
+    if (savedCards.every((card) => (card.hasTrunfo))) {
+      this.setState({ hasTrunfo: true });
+    }
+
+    this.setState((original) => ({
       cardName: '',
       cardDescription: '',
       cardAttr1: 0,
@@ -114,7 +116,8 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
-      savedCards: [...savedCards, newCard],
+      isSaveButtonDisabled: true,
+      savedCards: [...original.savedCards, newCard],
     }));
   };
 
